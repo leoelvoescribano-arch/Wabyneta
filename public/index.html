@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>contador-Wabyneta</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 80px; background: #f0f2f5; }
+        h2 { font-size: 72px; color: #1877f2; margin: 20px 0 30px; }
+        button { font-size: 22px; font-weight: bold; color: white; border: none; border-radius: 8px;
+                 padding: 16px 36px; margin: 0 8px; cursor: pointer; }
+        #sumar { background: #42b72a; }
+        #reiniciar { background: #e41e3f; }
+        button:hover { opacity: 0.85; }
+    </style>
+</head>
+<body>
+    <h1>Contador</h1>
+    <h2 id="numero">0</h2>
+    <button id="sumar">+1</button>
+    <button id="reiniciar">Reiniciar</button>
+
+    <script>
+        const numero = document.getElementById('numero');
+
+        async function pedir(url, metodo) {
+            const res = await fetch(url, { method: metodo });
+            const datos = await res.json();
+            numero.textContent = datos.valor;
+        }
+
+        document.getElementById('sumar').onclick = () => pedir('/api/contador/incrementar', 'POST');
+        document.getElementById('reiniciar').onclick = () => pedir('/api/contador/reiniciar', 'POST');
+
+        pedir('/api/contador', 'GET');
+    </script>
+</body>
+</html>
