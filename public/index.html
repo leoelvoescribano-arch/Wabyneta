@@ -11,6 +11,11 @@
         #sumar { background: #42b72a; }
         #reiniciar { background: #e41e3f; }
         button:hover { opacity: 0.85; }
+        button:disabled {
+    background: gray !important;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
     </style>
 </head>
 <body>
@@ -26,6 +31,8 @@
             const res = await fetch(url, { method: metodo });
             const datos = await res.json();
             numero.textContent = datos.valor;
+
+            document.getElementById('sumar').disabled = datos.valor >= 100;
         }
 
         document.getElementById('sumar').onclick = () => pedir('/api/contador/incrementar', 'POST');

@@ -9,7 +9,9 @@ app.use(express.static('public'));
 app.get('/api/contador', (req, res) => res.json({ valor: contador }));
 
 app.post('/api/contador/incrementar', (req, res) => {
-    contador++;
+    if (contador < 100) {
+        contador++;
+    }
     res.json({ valor: contador });
 });
 
